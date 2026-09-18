@@ -33,6 +33,7 @@
   <link rel="preload" href="/assets/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/site.css">
   <script>/*LANG_REDIRECT*/</script>
+  <script>/* Netlify Identity: invitation / recovery links land on the home page → send them to the back-office */(function(){if(/(invite|recovery|confirmation|email_change)_token=/.test(location.hash))location.replace("/admin/"+location.hash)})();</script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

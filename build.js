@@ -164,7 +164,7 @@ fs.writeFileSync(path.join(OUT, '_headers'), `/*
 /admin/*
   X-Frame-Options: DENY
   X-Robots-Tag: noindex
-  Content-Security-Policy: default-src 'self' https://unpkg.com https://api.netlify.com https://*.netlify.com https://api.github.com 'unsafe-inline' 'unsafe-eval' data: blob:; img-src * data: blob:
+  Content-Security-Policy: default-src 'self' https://unpkg.com https://identity.netlify.com https://api.netlify.com https://*.netlify.com https://api.github.com 'unsafe-inline' 'unsafe-eval' data: blob:; img-src * data: blob:; connect-src *
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 `);
