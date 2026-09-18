@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{en.notFound.title}} – Y-stream</title>
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#1f1f1e">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/space-grotesk-500-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
+  <script>
+    (function(){var fr=/^\/fr(\/|$)/.test(location.pathname);try{if(!fr&&!/^\/(legal|privacy|cookies)(\/|$)/.test(location.pathname))fr=localStorage.getItem('lang')==='fr'}catch(_){}
+    if(fr){document.documentElement.lang='fr';document.documentElement.classList.add('is-fr')}})();
+  </script>
+  <style>html.is-fr [lang="en"],html:not(.is-fr) [lang="fr"]{display:none}</style>
+</head>
+<body data-page="404">
+<header class="site-header scrolled" id="header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Y-stream – home">/*LOGO_SVG*/</a>
+    <nav aria-label="Main"><ul class="nav" id="nav">
+      <li lang="en"><a href="/#contact" class="cta">{{en.nav.contact}}</a></li>
+      <li lang="fr"><a href="/fr/#contact" class="cta">{{fr.nav.contact}}</a></li>
+    </ul></nav>
+  </div>
+</header>
+<main id="main">
+  <section class="nf">
+    <div class="wrap">
+      <div class="code" aria-hidden="true">4<b>0</b>4</div>
+      <h1 lang="en">{{en.notFound.title}}</h1><h1 lang="fr">{{fr.notFound.title}}</h1>
+      <p lang="en">{{en.notFound.text}}</p><p lang="fr">{{fr.notFound.text}}</p>
+      <div class="actions" lang="en"><a class="btn" href="/">{{en.notFound.home}}</a><a class="btn ghost" href="/#contact">{{en.notFound.contact}}</a></div>
+      <div class="actions" lang="fr"><a class="btn" href="/fr/">{{fr.notFound.home}}</a><a class="btn ghost" href="/fr/#contact">{{fr.notFound.contact}}</a></div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

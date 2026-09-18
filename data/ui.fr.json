@@ -1,0 +1,48 @@
+{
+  "skip": "Aller au contenu",
+  "langSwitch": "English",
+  "nav": {
+    "problem": "Le constat",
+    "idea": "L'idée",
+    "development": "Développement",
+    "team": "Équipe",
+    "contact": "Contact",
+    "deck": "Dossier investisseur"
+  },
+  "form": {
+    "name": "Nom",
+    "email": "E-mail",
+    "company": "Société",
+    "subject": "Vous êtes",
+    "message": "Message",
+    "send": "Envoyer",
+    "sentTitle": "Votre message a bien été envoyé",
+    "sentText": "Merci, nous vous répondrons sous deux jours ouvrés.",
+    "sentClose": "Fermer",
+    "errorText": "Désolé, le message n'a pas pu être envoyé. Merci de réessayer ou de nous écrire directement par e-mail."
+  },
+  "video": {
+    "open": "Voir le film",
+    "close": "Fermer",
+    "title": "Y-stream, le film"
+  },
+  "footer": {
+    "credit": "réalisé par",
+    "legal": "Mentions légales",
+    "privacy": "Politique de confidentialité",
+    "cookies": "Politique cookies",
+    "linkedin": "LinkedIn"
+  },
+  "cookies": {
+    "text": "Ce site n'utilise aucun cookie de suivi, seulement ce qui est nécessaire à son fonctionnement (votre choix de langue). ",
+    "link": "Politique cookies",
+    "ok": "OK"
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "text": "La page que vous cherchez n'existe pas ou a été déplacée.",
+    "home": "Retour à l'accueil",
+    "contact": "Nous contacter"
+  },
+  "scroll": "Défiler"
+}

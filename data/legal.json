@@ -1,0 +1,22 @@
+{
+  "pages": [
+    {
+      "slug": "legal",
+      "title": "Legal notice",
+      "updated": "Last updated: September 2026",
+      "body": "## Publisher\n\nThis website (y-stream.fr) is published by **ease lab SAS**, a French simplified joint-stock company (société par actions simplifiée) with a share capital of [to complete] €, registered with the Registre national des entreprises under number 920 236 338 (SIRET 920 236 338 00017), intra-community VAT number FR77 920 236 338.\n\nRegistered office: 72 avenue Isola Bella, Rosella Hightower, 06400 Cannes, France.\nE-mail: [info@y-stream.fr](mailto:info@y-stream.fr), Phone: +33 (0)6 08 28 69 39.\n\nPublication director: [to complete].\n\n## Hosting\n\nThe site is hosted by [hosting provider, to complete once chosen].\n\n## Intellectual property\n\nThe Y-stream device is protected by a patent. All content on this site (texts, images, 3D renders, videos, logos) is the property of ease lab SAS or its partners and may not be reproduced without prior written consent.\n\n## Design and development\n\n[ease designers, global thinking](https://www.ease-designers.com/), Cannes."
+    },
+    {
+      "slug": "privacy",
+      "title": "Privacy policy",
+      "updated": "Last updated: September 2026",
+      "body": "## Data we collect\n\nThe only personal data collected on this site is what you send us through the contact form (name, e-mail, company, message). It is used solely to answer your request and, if you ask for it, to send you the investor deck.\n\n## Legal basis and retention\n\nProcessing is based on your consent and on our legitimate interest in answering you. Messages are kept for a maximum of three years after our last exchange.\n\n## Your rights\n\nUnder the GDPR you may access, correct or delete your data at any time by writing to [info@y-stream.fr](mailto:info@y-stream.fr).\n\n## No tracking\n\nThis site uses no analytics, advertising or social-media trackers. See the [cookie policy](/cookies/)."
+    },
+    {
+      "slug": "cookies",
+      "title": "Cookie policy",
+      "updated": "Last updated: September 2026",
+      "body": "## Strictly necessary storage only\n\nThis site stores in your browser only what it needs to work: your language choice (EN/FR), the fact that you have dismissed this notice, and, if you watch it, nothing about the film. No cookie is used for advertising, analytics or profiling, and no data is shared with third parties.\n\n## Managing it\n\nYou can delete this data at any time from your browser settings; the site will simply ask for your language again."
+    }
+  ]
+}

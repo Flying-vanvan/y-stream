@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{page.title}} – Y-stream</title>
+  <meta name="description" content="{{page.title}} – Y-stream, ease lab SAS.">
+  <link rel="canonical" href="https://www.y-stream.fr{{selfPath}}">
+  <link rel="alternate" hreflang="en" href="https://www.y-stream.fr/{{page.slug}}/">
+  <link rel="alternate" hreflang="fr" href="https://www.y-stream.fr/fr/{{page.slug}}/">
+  <link rel="alternate" hreflang="x-default" href="https://www.y-stream.fr/{{page.slug}}/">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1f1f1e">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/space-grotesk-500-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
+  <script>/*LANG_REDIRECT*/</script>
+</head>
+<body data-page="legal">
+<a class="skip" href="#main">{{ui.skip}}</a>
+
+<header class="site-header scrolled" id="header">
+  <div class="wrap">
+    <a class="brand" href="{{homeUrl}}" aria-label="Y-stream – home">/*LOGO_SVG*/<span class="tag">{{home.footer.tagline}}</span></a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+    <nav aria-label="Main">
+      <ul class="nav" id="nav">
+        <li><a href="{{homeUrl}}#problem">{{ui.nav.problem}}</a></li>
+        <li><a href="{{homeUrl}}#idea">{{ui.nav.idea}}</a></li>
+        <li><a href="{{homeUrl}}#development">{{ui.nav.development}}</a></li>
+        <li><a href="{{homeUrl}}#team">{{ui.nav.team}}</a></li>
+        <li><a href="{{homeUrl}}#contact" class="cta">{{ui.nav.deck}}</a></li>
+        <li class="lang-item"><a class="lang-switch" id="lang-switch" href="{{altUrl}}" hreflang="{{altLang}}" lang="{{altLang}}" title="{{ui.langSwitch}}" data-lang="{{lang}}"><span class="knob" aria-hidden="true"></span><span class="l en">EN</span><span class="l fr">FR</span></a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="page-head">
+    <div class="wrap">
+      <h1 style="font-size:clamp(34px,4.5vw,50px)">{{page.title}}</h1>
+      <p class="updated">{{page.updated}}</p>
+    </div>
+  </div>
+  <section class="legal">
+    <div class="wrap prose">
+      /*PAGE_BODY*/
+    </div>
+  </section>
+</main>
+
+/*FOOTER*/
+
+<script>
+  const ls=document.getElementById('lang-switch');
+  ls.addEventListener('click',e=>{if(ls.classList.contains('sliding'))return;e.preventDefault();try{localStorage.setItem('lang','{{altLang}}')}catch(_){}ls.classList.add('sliding');const go=()=>location.href=ls.href;const m=matchMedia('(prefers-reduced-motion: reduce)').matches;setTimeout(go,m?0:560)});
+  const header=document.getElementById('header'),burger=document.getElementById('burger'),nav=document.getElementById('nav');
+  burger.addEventListener('click',()=>{const o=nav.classList.toggle('open');header.classList.toggle('menu-open',o);burger.setAttribute('aria-expanded',o)});
+  /*COOKIE_JS*/
+</script>
+</body>
+</html>

@@ -1,0 +1,923 @@
+backend:
+  name: git-gateway
+  branch: main
+locale: fr
+media_folder: assets/uploads
+public_folder: /assets/uploads
+collections:
+- name: site_en
+  label: Site – English
+  files:
+  - name: home_en
+    label: Home page (EN)
+    file: data/home.json
+    fields:
+    - label: hero
+      name: hero
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: text
+      - label: text
+        name: text
+        widget: text
+      - label: button1
+        name: button1
+        widget: string
+      - label: button2
+        name: button2
+        widget: string
+      - label: badge
+        name: badge
+        widget: string
+    - label: figures
+      name: figures
+      widget: object
+      fields:
+      - label: title
+        name: title
+        widget: string
+      - label: items
+        name: items
+        widget: list
+        fields:
+        - label: number
+          name: number
+          widget: string
+        - label: label
+          name: label
+          widget: string
+    - label: problem
+      name: problem
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: text
+        name: text
+        widget: text
+      - label: points
+        name: points
+        widget: list
+        fields:
+        - label: number
+          name: number
+          widget: string
+        - label: label
+          name: label
+          widget: string
+      - label: caption
+        name: caption
+        widget: string
+    - label: idea
+      name: idea
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: text
+        name: text
+        widget: text
+      - label: points
+        name: points
+        widget: list
+        fields:
+        - label: title
+          name: title
+          widget: string
+        - label: text
+          name: text
+          widget: string
+      - label: caption
+        name: caption
+        widget: string
+    - label: how
+      name: how
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: steps
+        name: steps
+        widget: list
+        fields:
+        - label: title
+          name: title
+          widget: string
+        - label: text
+          name: text
+          widget: text
+    - label: benefits
+      name: benefits
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: items
+        name: items
+        widget: list
+        fields:
+        - label: number
+          name: number
+          widget: string
+        - label: title
+          name: title
+          widget: string
+        - label: text
+          name: text
+          widget: text
+    - label: development
+      name: development
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: text
+        name: text
+        widget: text
+      - label: facts
+        name: facts
+        widget: list
+        fields:
+        - label: number
+          name: number
+          widget: string
+        - label: label
+          name: label
+          widget: string
+      - label: results
+        name: results
+        widget: object
+        fields:
+        - label: title
+          name: title
+          widget: string
+        - label: items
+          name: items
+          widget: list
+      - label: caption
+        name: caption
+        widget: string
+    - label: next
+      name: next
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: text
+        name: text
+        widget: text
+      - label: needs
+        name: needs
+        widget: list
+        fields:
+        - label: title
+          name: title
+          widget: string
+        - label: text
+          name: text
+          widget: string
+      - label: button
+        name: button
+        widget: string
+    - label: team
+      name: team
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: members
+        name: members
+        widget: list
+        fields:
+        - label: name
+          name: name
+          widget: string
+        - label: role
+          name: role
+          widget: string
+        - label: text
+          name: text
+          widget: text
+        - label: photo
+          name: photo
+          widget: string
+      - label: partnersTitle
+        name: partnersTitle
+        widget: string
+      - label: partners
+        name: partners
+        widget: list
+        fields:
+        - label: name
+          name: name
+          widget: string
+        - label: logo
+          name: logo
+          widget: string
+        - label: url
+          name: url
+          widget: string
+    - label: contact
+      name: contact
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: text
+        name: text
+        widget: text
+      - label: company
+        name: company
+        widget: string
+      - label: address
+        name: address
+        widget: text
+      - label: email
+        name: email
+        widget: string
+      - label: phone
+        name: phone
+        widget: string
+      - label: linkedin
+        name: linkedin
+        widget: string
+      - label: formNote
+        name: formNote
+        widget: string
+      - label: subjects
+        name: subjects
+        widget: list
+    - label: footer
+      name: footer
+      widget: object
+      fields:
+      - label: copyright
+        name: copyright
+        widget: string
+      - label: tagline
+        name: tagline
+        widget: string
+  - name: seo_en
+    label: SEO (EN)
+    file: data/seo.json
+    fields:
+    - label: title
+      name: title
+      widget: string
+    - label: description
+      name: description
+      widget: text
+    - label: ogTitle
+      name: ogTitle
+      widget: string
+    - label: ogImage
+      name: ogImage
+      widget: string
+    - label: keywords
+      name: keywords
+      widget: text
+  - name: ui_en
+    label: Interface texts (EN)
+    file: data/ui.json
+    fields:
+    - label: skip
+      name: skip
+      widget: string
+    - label: langSwitch
+      name: langSwitch
+      widget: string
+    - label: nav
+      name: nav
+      widget: object
+      fields:
+      - label: problem
+        name: problem
+        widget: string
+      - label: idea
+        name: idea
+        widget: string
+      - label: development
+        name: development
+        widget: string
+      - label: team
+        name: team
+        widget: string
+      - label: contact
+        name: contact
+        widget: string
+      - label: deck
+        name: deck
+        widget: string
+    - label: form
+      name: form
+      widget: object
+      fields:
+      - label: name
+        name: name
+        widget: string
+      - label: email
+        name: email
+        widget: string
+      - label: company
+        name: company
+        widget: string
+      - label: subject
+        name: subject
+        widget: string
+      - label: message
+        name: message
+        widget: string
+      - label: send
+        name: send
+        widget: string
+      - label: sentTitle
+        name: sentTitle
+        widget: string
+      - label: sentText
+        name: sentText
+        widget: string
+      - label: sentClose
+        name: sentClose
+        widget: string
+      - label: errorText
+        name: errorText
+        widget: text
+    - label: video
+      name: video
+      widget: object
+      fields:
+      - label: open
+        name: open
+        widget: string
+      - label: close
+        name: close
+        widget: string
+      - label: title
+        name: title
+        widget: string
+    - label: footer
+      name: footer
+      widget: object
+      fields:
+      - label: credit
+        name: credit
+        widget: string
+      - label: legal
+        name: legal
+        widget: string
+      - label: privacy
+        name: privacy
+        widget: string
+      - label: cookies
+        name: cookies
+        widget: string
+      - label: linkedin
+        name: linkedin
+        widget: string
+    - label: cookies
+      name: cookies
+      widget: object
+      fields:
+      - label: text
+        name: text
+        widget: text
+      - label: link
+        name: link
+        widget: string
+      - label: ok
+        name: ok
+        widget: string
+    - label: notFound
+      name: notFound
+      widget: object
+      fields:
+      - label: title
+        name: title
+        widget: string
+      - label: text
+        name: text
+        widget: string
+      - label: home
+        name: home
+        widget: string
+      - label: contact
+        name: contact
+        widget: string
+    - label: scroll
+      name: scroll
+      widget: string
+  - name: legal_en
+    label: Legal pages (EN)
+    file: data/legal.json
+    fields:
+    - label: Pages
+      name: pages
+      widget: list
+      fields:
+      - label: Slug
+        name: slug
+        widget: string
+      - label: Title
+        name: title
+        widget: string
+      - label: Updated
+        name: updated
+        widget: string
+      - label: Body
+        name: body
+        widget: markdown
+- name: site_fr
+  label: Site – Français
+  files:
+  - name: home_fr
+    label: Page d'accueil (FR)
+    file: data/home.fr.json
+    fields:
+    - label: hero
+      name: hero
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: text
+      - label: text
+        name: text
+        widget: text
+      - label: button1
+        name: button1
+        widget: string
+      - label: button2
+        name: button2
+        widget: string
+      - label: badge
+        name: badge
+        widget: string
+    - label: figures
+      name: figures
+      widget: object
+      fields:
+      - label: title
+        name: title
+        widget: string
+      - label: items
+        name: items
+        widget: list
+        fields:
+        - label: number
+          name: number
+          widget: string
+        - label: label
+          name: label
+          widget: string
+    - label: problem
+      name: problem
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: text
+        name: text
+        widget: text
+      - label: points
+        name: points
+        widget: list
+        fields:
+        - label: number
+          name: number
+          widget: string
+        - label: label
+          name: label
+          widget: string
+      - label: caption
+        name: caption
+        widget: string
+    - label: idea
+      name: idea
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: text
+        name: text
+        widget: text
+      - label: points
+        name: points
+        widget: list
+        fields:
+        - label: title
+          name: title
+          widget: string
+        - label: text
+          name: text
+          widget: string
+      - label: caption
+        name: caption
+        widget: string
+    - label: how
+      name: how
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: steps
+        name: steps
+        widget: list
+        fields:
+        - label: title
+          name: title
+          widget: string
+        - label: text
+          name: text
+          widget: text
+    - label: benefits
+      name: benefits
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: items
+        name: items
+        widget: list
+        fields:
+        - label: number
+          name: number
+          widget: string
+        - label: title
+          name: title
+          widget: string
+        - label: text
+          name: text
+          widget: text
+    - label: development
+      name: development
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: text
+        name: text
+        widget: text
+      - label: facts
+        name: facts
+        widget: list
+        fields:
+        - label: number
+          name: number
+          widget: string
+        - label: label
+          name: label
+          widget: string
+      - label: results
+        name: results
+        widget: object
+        fields:
+        - label: title
+          name: title
+          widget: string
+        - label: items
+          name: items
+          widget: list
+      - label: caption
+        name: caption
+        widget: string
+    - label: next
+      name: next
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: text
+        name: text
+        widget: text
+      - label: needs
+        name: needs
+        widget: list
+        fields:
+        - label: title
+          name: title
+          widget: string
+        - label: text
+          name: text
+          widget: string
+      - label: button
+        name: button
+        widget: string
+    - label: team
+      name: team
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: members
+        name: members
+        widget: list
+        fields:
+        - label: name
+          name: name
+          widget: string
+        - label: role
+          name: role
+          widget: string
+        - label: text
+          name: text
+          widget: text
+        - label: photo
+          name: photo
+          widget: string
+      - label: partnersTitle
+        name: partnersTitle
+        widget: string
+      - label: partners
+        name: partners
+        widget: list
+        fields:
+        - label: name
+          name: name
+          widget: string
+        - label: logo
+          name: logo
+          widget: string
+        - label: url
+          name: url
+          widget: string
+    - label: contact
+      name: contact
+      widget: object
+      fields:
+      - label: eyebrow
+        name: eyebrow
+        widget: string
+      - label: title
+        name: title
+        widget: string
+      - label: text
+        name: text
+        widget: text
+      - label: company
+        name: company
+        widget: string
+      - label: address
+        name: address
+        widget: text
+      - label: email
+        name: email
+        widget: string
+      - label: phone
+        name: phone
+        widget: string
+      - label: linkedin
+        name: linkedin
+        widget: string
+      - label: formNote
+        name: formNote
+        widget: string
+      - label: subjects
+        name: subjects
+        widget: list
+    - label: footer
+      name: footer
+      widget: object
+      fields:
+      - label: copyright
+        name: copyright
+        widget: string
+      - label: tagline
+        name: tagline
+        widget: string
+  - name: seo_fr
+    label: SEO (FR)
+    file: data/seo.fr.json
+    fields:
+    - label: title
+      name: title
+      widget: string
+    - label: description
+      name: description
+      widget: text
+    - label: ogTitle
+      name: ogTitle
+      widget: string
+    - label: ogImage
+      name: ogImage
+      widget: string
+    - label: keywords
+      name: keywords
+      widget: text
+  - name: ui_fr
+    label: Textes d'interface (FR)
+    file: data/ui.fr.json
+    fields:
+    - label: skip
+      name: skip
+      widget: string
+    - label: langSwitch
+      name: langSwitch
+      widget: string
+    - label: nav
+      name: nav
+      widget: object
+      fields:
+      - label: problem
+        name: problem
+        widget: string
+      - label: idea
+        name: idea
+        widget: string
+      - label: development
+        name: development
+        widget: string
+      - label: team
+        name: team
+        widget: string
+      - label: contact
+        name: contact
+        widget: string
+      - label: deck
+        name: deck
+        widget: string
+    - label: form
+      name: form
+      widget: object
+      fields:
+      - label: name
+        name: name
+        widget: string
+      - label: email
+        name: email
+        widget: string
+      - label: company
+        name: company
+        widget: string
+      - label: subject
+        name: subject
+        widget: string
+      - label: message
+        name: message
+        widget: string
+      - label: send
+        name: send
+        widget: string
+      - label: sentTitle
+        name: sentTitle
+        widget: string
+      - label: sentText
+        name: sentText
+        widget: string
+      - label: sentClose
+        name: sentClose
+        widget: string
+      - label: errorText
+        name: errorText
+        widget: text
+    - label: video
+      name: video
+      widget: object
+      fields:
+      - label: open
+        name: open
+        widget: string
+      - label: close
+        name: close
+        widget: string
+      - label: title
+        name: title
+        widget: string
+    - label: footer
+      name: footer
+      widget: object
+      fields:
+      - label: credit
+        name: credit
+        widget: string
+      - label: legal
+        name: legal
+        widget: string
+      - label: privacy
+        name: privacy
+        widget: string
+      - label: cookies
+        name: cookies
+        widget: string
+      - label: linkedin
+        name: linkedin
+        widget: string
+    - label: cookies
+      name: cookies
+      widget: object
+      fields:
+      - label: text
+        name: text
+        widget: text
+      - label: link
+        name: link
+        widget: string
+      - label: ok
+        name: ok
+        widget: string
+    - label: notFound
+      name: notFound
+      widget: object
+      fields:
+      - label: title
+        name: title
+        widget: string
+      - label: text
+        name: text
+        widget: string
+      - label: home
+        name: home
+        widget: string
+      - label: contact
+        name: contact
+        widget: string
+    - label: scroll
+      name: scroll
+      widget: string
+  - name: legal_fr
+    label: Pages légales (FR)
+    file: data/legal.fr.json
+    fields:
+    - label: Pages
+      name: pages
+      widget: list
+      fields:
+      - label: Slug
+        name: slug
+        widget: string
+      - label: Titre
+        name: title
+        widget: string
+      - label: Mise à jour
+        name: updated
+        widget: string
+      - label: Contenu
+        name: body
+        widget: markdown

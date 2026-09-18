@@ -1,0 +1,234 @@
+{
+  "hero": {
+    "eyebrow": "Aérodynamique du transport routier",
+    "title": "Les camions sont des cubes sur roues.\nNous les faisons glisser dans l'air.",
+    "text": "Y-stream est un appendice aérodynamique textile pour semi-remorques. Il se gonfle avec le vent relatif, réduit la traînée de 15 % et la consommation jusqu'à 10 %. Breveté, validé en soufflerie, prêt à changer d'échelle.",
+    "button1": "Découvrir la technologie",
+    "button2": "Voir le film",
+    "badge": "jusqu'à −10 % de carburant"
+  },
+  "figures": {
+    "title": "Le transport routier en Europe",
+    "items": [
+      {
+        "number": "6,5 M",
+        "label": "de camions sur les routes européennes"
+      },
+      {
+        "number": "90 %",
+        "label": "des marchandises transportées par la route"
+      },
+      {
+        "number": "2 500 h",
+        "label": "sur la route, par camion et par an"
+      },
+      {
+        "number": "56 000 L",
+        "label": "de carburant par camion et par an (32–35 L/100 km)"
+      }
+    ]
+  },
+  "problem": {
+    "eyebrow": "Le constat",
+    "title": "La réglementation a façonné le camion.\nLa physique présente la facture.",
+    "text": "Les gabarits européens ont fait des remorques des boîtes : la forme la plus efficace pour charger, la pire pour avancer dans l'air. Un arrière plat crée derrière le véhicule une large zone de turbulences et de basse pression, le sillage, qui tire littéralement le camion en arrière.",
+    "points": [
+      {
+        "number": "35–40 %",
+        "label": "de l'énergie consommée par un camion sert à vaincre la traînée aérodynamique"
+      },
+      {
+        "number": "30–35 %",
+        "label": "de cette traînée est générée par le seul arrière de la remorque"
+      }
+    ],
+    "caption": "Turbulences de sillage derrière une remorque cubique (simulation CFD)"
+  },
+  "idea": {
+    "eyebrow": "L'idée",
+    "title": "Une coiffe qui se gonfle toute seule",
+    "text": "Y-stream est un appendice textile fixé à l'arrière de la remorque. Au-delà de 80 km/h, le vent relatif le gonfle en une coiffe profilée qui referme le sillage. Le gonflage est purement mécanique, ni moteur, ni électronique, et s'ajuste avec la vitesse. En dessous de 80 km/h il reste à plat et la remorque conserve ses dimensions standard.",
+    "points": [
+      {
+        "title": "Profile l'arrière",
+        "text": "La coiffe prolonge la forme de la remorque et laisse l'air se refermer en douceur derrière elle."
+      },
+      {
+        "title": "Gonflé par l'écoulement",
+        "text": "Gonflage mécanique et auto-ajusté par le vent relatif. Rien à activer."
+      },
+      {
+        "title": "Portes, chargement et emprise : inchangés",
+        "text": "Le système breveté n'entrave en aucun point les opérations : les portes arrière s'ouvrent et se ferment normalement, le chargement et le déchargement restent identiques, et la remorque conserve son gabarit et son emprise."
+      },
+      {
+        "title": "Né du vol libre",
+        "text": "Le concept vient de notre expérience des voiles et sellettes de parapente : des structures textiles légères mises en forme par l'air."
+      }
+    ],
+    "caption": "La coiffe gonflée referme le sillage et réduit la traînée"
+  },
+  "how": {
+    "eyebrow": "Comment ça marche",
+    "title": "Quatre états, un système simple",
+    "steps": [
+      {
+        "title": "Standard",
+        "text": "Monté en première ou seconde monte, avec un châssis technique aluminium minimal."
+      },
+      {
+        "title": "Inactif sous 80 km/h",
+        "text": "En ville et pendant les manœuvres, le dispositif reste à plat contre les portes arrière."
+      },
+      {
+        "title": "Gonflage automatique",
+        "text": "À vitesse autoroutière, l'écoulement d'air gonfle la poche textile dans sa forme aérodynamique."
+      },
+      {
+        "title": "Baisse de consommation",
+        "text": "La traînée chute, la consommation suit, directement, à chaque kilomètre parcouru."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Pourquoi c'est bien",
+    "title": "Simple, sûr, prêt à industrialiser",
+    "items": [
+      {
+        "number": "−15 %",
+        "title": "de traînée totale",
+        "text": "Mesuré lors des campagnes en soufflerie sur maquettes au 1/6, jusqu'à 10 % d'énergie consommée en moins."
+      },
+      {
+        "number": "+",
+        "title": "de sécurité",
+        "text": "Souple et non contondante, la coiffe agit comme un airbag et augmente les distances de sécurité derrière la remorque."
+      },
+      {
+        "number": "1 taille",
+        "title": "pour toute la flotte",
+        "text": "Les dimensions des remorques sont normées en Europe : un design, une production en série, une pose rapide."
+      },
+      {
+        "number": "UE",
+        "title": "conforme",
+        "text": "Conçu pour la nouvelle directive européenne sur l'aérodynamique des poids lourds, à laquelle nous participons."
+      }
+    ]
+  },
+  "development": {
+    "eyebrow": "Développement",
+    "title": "Réglementation, design, fabrication, tests : fait",
+    "text": "Pour rendre le projet viable nous avons créé la SAS ease lab, qui a porté toutes les premières étapes. Les matériaux, les choix technologiques et les principes de fonctionnement ont été validés sur des prototypes au 1/6.",
+    "facts": [
+      {
+        "number": "14",
+        "label": "prototypes réalisés & testés"
+      },
+      {
+        "number": "5",
+        "label": "campagnes d'essais en soufflerie"
+      },
+      {
+        "number": "1",
+        "label": "brevet déposé"
+      },
+      {
+        "number": "1",
+        "label": "financement Bpifrance innovation"
+      }
+    ],
+    "results": {
+      "title": "Des résultats positifs à l'échelle 1/6",
+      "items": [
+        "Réduction majeure de la traînée, un design validé",
+        "Des résultats conformes aux attentes, un impact énergétique fort",
+        "Un brevet, matériaux, choix technologiques & principes validés",
+        "Cadre réglementaire européen validé"
+      ]
+    },
+    "caption": "Prototype au 1/6 dans la soufflerie S2A"
+  },
+  "next": {
+    "eyebrow": "La suite",
+    "title": "Passer à l'échelle 1,\npuis aller sur la route",
+    "text": "La physique est démontrée. L'étape suivante est un dispositif en taille réelle sur une vraie remorque, testé sur de vraies routes avec un partenaire industriel. Pour y arriver, nous cherchons :",
+    "needs": [
+      {
+        "title": "Un partenaire industriel",
+        "text": "Constructeur de remorques ou carrossier pour réaliser le dispositif à l'échelle 1."
+      },
+      {
+        "title": "La normalisation",
+        "text": "Homologation du dispositif par type de remorque."
+      },
+      {
+        "title": "Un financement",
+        "text": "Les campagnes d'essais routiers et la pré-série."
+      },
+      {
+        "title": "Des flottes pilotes",
+        "text": "Des transporteurs prêts à tester le dispositif en conditions réelles."
+      }
+    ],
+    "button": "Devenir partenaire ou investisseur"
+  },
+  "team": {
+    "eyebrow": "L'équipe",
+    "title": "Deux fondateurs, une obsession : mieux faire rouler les camions",
+    "members": [
+      {
+        "name": "Pierre Herpin",
+        "role": "Cofondateur, analyste financier",
+        "text": "Structuration financière, modèle économique et relations avec les investisseurs et les financeurs publics.",
+        "photo": "/assets/img/pierre-herpin.jpg"
+      },
+      {
+        "name": "Ivan Bellia",
+        "role": "Cofondateur, designer",
+        "text": "Design produit, prototypes et essais. Un parcours entre vol libre et design industriel, à la tête de l'agence ease designers.",
+        "photo": "/assets/img/ivan-bellia.jpg"
+      }
+    ],
+    "partnersTitle": "Ils nous accompagnent",
+    "partners": [
+      {
+        "name": "Bpifrance",
+        "logo": "/assets/img/partner-bpi.png",
+        "url": "https://www.bpifrance.fr/"
+      },
+      {
+        "name": "S2A, soufflerie aérodynamique",
+        "logo": "/assets/img/partner-s2a.png",
+        "url": "https://www.souffleries2a.com/"
+      },
+      {
+        "name": "ease designers",
+        "logo": "/assets/img/partner-ease.png",
+        "url": "https://www.ease-designers.com/"
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Parlons du prochain kilomètre",
+    "text": "Investisseur, industriel, transporteur, journaliste : dites-nous qui vous êtes et nous vous enverrons le dossier investisseur et le dossier technique complet.",
+    "company": "ease lab SAS · Y-stream",
+    "address": "72 avenue Isola Bella, Rosella Hightower\n06400 Cannes, FRANCE",
+    "email": "info@y-stream.fr",
+    "phone": "+33 (0)6 08 28 69 39",
+    "linkedin": "https://www.linkedin.com/in/ivan-bellia-0551271b/",
+    "formNote": "Nous répondons sous deux jours ouvrés. Pas de newsletter, aucun partage de vos coordonnées.",
+    "subjects": [
+      "Je souhaite investir",
+      "Partenariat industriel",
+      "Flotte pilote",
+      "Presse",
+      "Autre"
+    ]
+  },
+  "footer": {
+    "copyright": "© 2026 ease lab SAS · Y-stream, for better moves",
+    "tagline": "for better moves"
+  }
+}

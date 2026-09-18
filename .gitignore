@@ -1,0 +1,10 @@
+dist/
+apercu/
+node_modules/
+.DS_Store
+# sources lourdes conservées localement, pas dans le dépôt
+assets/*.ai
+assets/Mon film 2c.mp4
+assets/260731_*.png
+assets/250619__*.png
+assets/_frames/
