@@ -334,11 +334,18 @@
   // film
   const vd=$('video-dialog'),film=$('film');
   const openFilm=()=>{vd.showModal();document.body.style.overflow='hidden';film.play().catch(()=>{})};
-  // styled captions: the VTT track drives an HTML overlay (native rendering hidden)
-  const cap=$('film-caption'),trk=$('film-track');
-  const showCue=()=>{const t=trk.track;if(!t)return;t.mode='hidden';const c=t.activeCues&&t.activeCues[0];if(c){cap.innerHTML=c.text.replace(/\n/g,'<br>');cap.classList.add('on')}else cap.classList.remove('on')};
-  if(trk.track){trk.track.mode='hidden';trk.addEventListener('load',()=>{trk.track.mode='hidden'});trk.track.addEventListener('cuechange',showCue)}
-  film.addEventListener('loadedmetadata',()=>{if(trk.track)trk.track.mode='hidden'});
+  // styled captions: the VTT file is parsed here and drives an HTML overlay (native rendering off; works in Safari too)
+  const cap=$('film-caption'),trk=$('film-track');let cues=[],capTimer=0;
+  const hideNative=()=>{for(const t of film.textTracks)t.mode='hidden'};
+  hideNative();film.addEventListener('loadedmetadata',hideNative);trk.addEventListener('load',hideNative);
+  const toS=t=>{const p=t.trim().split(':').map(Number);return p.length===3?p[0]*3600+p[1]*60+p[2]:p[0]*60+p[1]};
+  fetch(trk.getAttribute('src')).then(r=>r.text()).then(txt=>{cues=txt.split(/\n\s*\n/).map(b=>{const m=b.match(/([\d:.]+)\s*-->\s*([\d:.]+)\s*\n([\s\S]*)/);return m?{a:toS(m[1]),b:toS(m[2]),t:m[3].trim()}:null}).filter(Boolean)}).catch(()=>{});
+  let lastCue=null;
+  const tick=()=>{const now=film.currentTime;const c=cues.find(x=>now>=x.a&&now<x.b)||null;
+    if(c!==lastCue){lastCue=c;if(c){cap.textContent='';c.t.split('\n').forEach((l,i)=>{if(i)cap.appendChild(document.createElement('br'));cap.appendChild(document.createTextNode(l))});cap.classList.add('on')}else cap.classList.remove('on')}
+    if(!film.paused&&!film.ended)capTimer=requestAnimationFrame(tick)};
+  film.addEventListener('play',()=>{cancelAnimationFrame(capTimer);tick()});
+  film.addEventListener('seeked',tick);film.addEventListener('timeupdate',tick);
   const closeFilm=()=>{film.pause();vd.close()};
   $('play-film').addEventListener('click',openFilm);
   $('video-close').addEventListener('click',closeFilm);
