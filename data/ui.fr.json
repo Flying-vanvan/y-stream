@@ -24,7 +24,8 @@
   "video": {
     "open": "Voir le film",
     "close": "Fermer",
-    "title": "Y-stream, le film"
+    "title": "Y-stream, le film",
+    "captions": "Sous-titres"
   },
   "footer": {
     "credit": "réalisé par",

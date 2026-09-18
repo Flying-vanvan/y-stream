@@ -252,6 +252,10 @@ dialog:focus{outline:none}
 .video-dialog .dlg-close{color:#fff;top:4px;right:6px}
 .video-dialog .dlg-close:hover{color:var(--lime)}
 .video-dialog video{width:100%;aspect-ratio:16/9;background:#000;display:block}
+.film-wrap{position:relative}
+.film-wrap video::cue{opacity:0;visibility:hidden}
+.film-caption{position:absolute;left:8%;right:8%;top:50%;transform:translateY(-50%) translateY(10px);text-align:center;color:#fff;font-family:var(--font-head);font-weight:500;font-size:clamp(18px,3.2vw,40px);line-height:1.25;letter-spacing:.01em;text-shadow:0 2px 6px rgba(0,0,0,.55),0 0 28px rgba(0,0,0,.35);pointer-events:none;opacity:0;transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.film-caption.on{opacity:1;transform:translateY(-50%)}
 .msg-dialog{width:min(480px,calc(100vw - 32px));text-align:center}
 .msg-body{padding:clamp(32px,5vw,52px) clamp(24px,4vw,44px)}
 .msg-icon{width:72px;height:72px;border-radius:50%;background:var(--lime);color:var(--ink);display:grid;place-items:center;margin:0 auto 20px;animation:msgPop .6s var(--ease) .15s both}

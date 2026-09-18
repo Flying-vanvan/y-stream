@@ -298,9 +298,13 @@
 
 <dialog class="video-dialog" id="video-dialog" aria-label="{{ui.video.title}}">
   <button class="dlg-close" id="video-close" type="button" aria-label="{{ui.video.close}}">×</button>
-  <video id="film" controls preload="none" poster="/assets/img/render-flow.jpg">
-    <source src="/assets/video/y-stream-film.mp4" type="video/mp4">
-  </video>
+  <div class="film-wrap">
+    <video id="film" controls preload="none" poster="/assets/img/render-flow.jpg">
+      <source src="/assets/video/y-stream-film.mp4" type="video/mp4">
+      <track id="film-track" kind="captions" srclang="{{lang}}" label="{{ui.video.captions}}" src="/assets/video/film.{{lang}}.vtt" default>
+    </video>
+    <div class="film-caption" id="film-caption" aria-live="off"></div>
+  </div>
 </dialog>
 <dialog class="msg-dialog" id="msg-dialog" aria-labelledby="msg-dialog-title">
   <button class="dlg-close" id="msg-close" type="button" aria-label="{{ui.form.sentClose}}">×</button>
@@ -330,6 +334,11 @@
   // film
   const vd=$('video-dialog'),film=$('film');
   const openFilm=()=>{vd.showModal();document.body.style.overflow='hidden';film.play().catch(()=>{})};
+  // styled captions: the VTT track drives an HTML overlay (native rendering hidden)
+  const cap=$('film-caption'),trk=$('film-track');
+  const showCue=()=>{const t=trk.track;if(!t)return;t.mode='hidden';const c=t.activeCues&&t.activeCues[0];if(c){cap.innerHTML=c.text.replace(/\n/g,'<br>');cap.classList.add('on')}else cap.classList.remove('on')};
+  if(trk.track){trk.track.mode='hidden';trk.addEventListener('load',()=>{trk.track.mode='hidden'});trk.track.addEventListener('cuechange',showCue)}
+  film.addEventListener('loadedmetadata',()=>{if(trk.track)trk.track.mode='hidden'});
   const closeFilm=()=>{film.pause();vd.close()};
   $('play-film').addEventListener('click',openFilm);
   $('video-close').addEventListener('click',closeFilm);
