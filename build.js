@@ -28,6 +28,8 @@ const FLOW = `<svg class="flow" viewBox="0 0 1600 900" aria-hidden="true" preser
       <path d="M-50 700 C 400 650, 1100 800, 1650 680"/>
       <path d="M-50 850 C 500 810, 900 920, 1650 820"/>
     </svg>`;
+// cache-busting: the CSS URL carries a hash of its content (assets are cached one year by browsers)
+const cssVer = require('crypto').createHash('md5').update(read('assets/site.css')).digest('hex').slice(0, 8);
 const logoSvg = read('assets/logo-y-stream.svg').replace(/<\?xml[^>]*>/, '').replace('<svg ', '<svg class="logo" width="150" height="88" ');
 
 const LANGS = {
@@ -51,7 +53,7 @@ function buildLang(lang) {
     return esc(v ?? '');
   });
   const footer = read('partials-footer.html'), cookieJs = read('partials-cookie.js');
-  const finish = (html, extra) => apply(html.replace('/*FOOTER*/', footer).replace('/*COOKIE_JS*/', cookieJs).split('/*LOGO_SVG*/').join(logoSvg).split('/*FLOW*/').join(FLOW), extra);
+  const finish = (html, extra) => apply(html.replace('<link rel="stylesheet" href="/assets/site.css">', `<link rel="stylesheet" href="/assets/site.css?v=${cssVer}">`).replace('/*FOOTER*/', footer).replace('/*COOKIE_JS*/', cookieJs).split('/*LOGO_SVG*/').join(logoSvg).split('/*FLOW*/').join(FLOW), extra);
   const phoneTel = home_.contact.phone.replace(/\(0\)/, '').replace(/[^\d]/g, '');
   const h = home_;
   const h1 = esc(h.hero.title).split('\n').map((l, i) => i ? `<span class="line2">${l}</span>` : l).join('<br>');
@@ -102,7 +104,7 @@ function buildLang(lang) {
     const names = {en: 'accueil.html', fr: 'fr-accueil.html'};
     const pfx = lang === 'en' ? '' : 'fr-', opfx = lang === 'en' ? 'fr-' : '';
     const prep = (html, altUrl, altFile) => html
-      .replace('<link rel="stylesheet" href="/assets/site.css">', `<style>\n${css}\n</style>`)
+      .replace(`<link rel="stylesheet" href="/assets/site.css?v=${cssVer}">`, `<style>\n${css}\n</style>`)
       .split('"/assets/').join('"../assets/')
       .split(`href="${homePath}#`).join(`href="${names[lang]}#`)
       .split(`href="${homePath}"`).join(`href="${names[lang]}"`)
@@ -126,12 +128,12 @@ buildLang('en'); buildLang('fr');
 // ---- 404 page (bilingual, one file served by Netlify / Cloudflare Pages)
 {
   const uiEn = json('data/ui.json'), uiFr = json('data/ui.fr.json');
-  const nf = read('404.html').split('/*LOGO_SVG*/').join(logoSvg).replace(/\{\{(en|fr)\.([a-zA-Z0-9.]+)\}\}/g, (_, l, k) => esc(get(l === 'en' ? uiEn : uiFr, k) ?? ''));
+  const nf = read('404.html').replace('<link rel="stylesheet" href="/assets/site.css">', `<link rel="stylesheet" href="/assets/site.css?v=${cssVer}">`).split('/*LOGO_SVG*/').join(logoSvg).replace(/\{\{(en|fr)\.([a-zA-Z0-9.]+)\}\}/g, (_, l, k) => esc(get(l === 'en' ? uiEn : uiFr, k) ?? ''));
   fs.writeFileSync(path.join(OUT, '404.html'), nf);
   if (preview) {
     const css = read('assets/site.css').split('url("/assets/').join('url("../assets/');
     const map = {'/#': 'accueil.html#', '/fr/#': 'fr-accueil.html#', '/fr/': 'fr-accueil.html', '/': 'accueil.html'};
-    let h = nf.replace('<link rel="stylesheet" href="/assets/site.css">', `<style>\n${css}\n</style>`).split('"/assets/').join('"../assets/');
+    let h = nf.replace(`<link rel="stylesheet" href="/assets/site.css?v=${cssVer}">`, `<style>\n${css}\n</style>`).split('"/assets/').join('"../assets/');
     for (const [k, v] of Object.entries(map)) h = h.split(`href="${k}`).join(`href="${v}`);
     fs.writeFileSync(path.join(SRC, 'apercu', '404.html'), h);
   }
