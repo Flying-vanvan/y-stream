@@ -119,8 +119,8 @@ S += [table([['Service', 'Compte', 'Sert à'],
              ['GitHub', 'Flying-vanvan (compte personnel existant)', 'Héberger le dépôt y-stream. Donne accès à Netlify en lecture/écriture sur ce seul dépôt.'],
              ['Netlify', 'ivan@ease-designers.com (connexion via GitHub)', 'Build, hébergement, HTTPS, formulaire (Forms), comptes du back-office (Identity + Git Gateway), domaine.'],
              ['Netlify Identity', 'Utilisateurs invités : Ivan (+ Pierre si besoin)', 'Connexion au back-office. Inscription en « Invite only ». Mot de passe oublié : lien « Forgot password » sur /admin/.'],
-             ['Infomaniak', 'Compte existant', 'Domaine y-stream.fr (zone DNS) et messagerie info@y-stream.fr. Seuls les enregistrements A de @ et CNAME de www pointent vers Netlify ; MX, SPF, DKIM restent Infomaniak.'],
-             ['Wix', 'Ancien site', 'À résilier après quelques semaines de stabilité du nouveau site.']],
+             ['Infomaniak', 'Compte existant', 'Registrar et serveurs DNS du domaine y-stream.fr (ns11/ns12.infomaniak.ch, délégation active depuis le 18/09/2026) et messagerie info@y-stream.fr. Seuls A de @ et CNAME de www pointent vers Netlify ; MX, SPF, DKIM, DMARC restent Infomaniak. Expiration du domaine : 16/10/2026, vérifier le renouvellement automatique.'],
+             ['Wix', 'Ancien site', 'Hors ligne depuis la bascule DNS. À résilier après quelques semaines de stabilité du nouveau site.']],
             [30*mm, 55*mm, 85*mm])]
 S += [p('DNS (chez Infomaniak, zone y-stream.fr)', EYE),
       table([['Type', 'Nom', 'Valeur'], ['A', '@', '75.2.60.5 (Netlify)'], ['CNAME', 'www', 'ystream.netlify.app'], ['MX / TXT', '@', 'inchangés (messagerie Infomaniak)']], [25*mm, 25*mm, 120*mm])]
@@ -138,7 +138,7 @@ S += [p('SEO', EYE),
         'Redirections des anciennes URL Wix : /technologie, /à-propos, /politique-de-confidentialité. '
         'À faire après la bascule : déclarer la propriété dans Google Search Console (validation par enregistrement TXT chez Infomaniak) et soumettre https://www.y-stream.fr/sitemap.xml.')]
 S += [p('FORMULAIRE DE CONTACT', EYE),
-      p('Netlify Forms : les messages arrivent dans Netlify → Forms → contact et par e-mail si une notification est configurée (Forms → Notifications → e-mail vers info@y-stream.fr). '
+      p('Netlify Forms : les messages arrivent dans Netlify → Forms → contact et par e-mail à info@y-stream.fr (notification configurée et testée le 21/09/2026). '
         'Envoi en arrière-plan, popup « Votre message a bien été envoyé » ; champ anti-spam caché (honeypot). Limite du plan gratuit : 100 messages par mois.')]
 
 # ---------------- Que faire si
@@ -156,15 +156,15 @@ S += [table([['Situation', 'Réponse'],
              ['Quitter Netlify un jour', 'Le dossier + <font face="Courier">node build.js</font> suffisent : dist/ se dépose sur n’importe quel hébergeur statique (Cloudflare Pages, OVH, Infomaniak). Seuls le formulaire et la connexion au back-office seraient à reconfigurer.']],
             [50*mm, 120*mm])]
 
-# ---------------- Reste à faire
-S += [p('Reste à faire au lancement', H2),
-      p('• Bascule DNS chez Infomaniak (voir tableau) puis domaine principal www.y-stream.fr dans Netlify.<br/>'
-        '• Mentions légales : capital social et directeur de la publication (marqués [à compléter] dans data/legal*.json) ; hébergeur : Netlify, Inc., 512 2nd Street, San Francisco, CA 94107, USA.<br/>'
-        '• Netlify → Forms : activer la détection, ajouter la notification e-mail, faire un envoi de test.<br/>'
-        '• Retirer le badge « Powered by Netlify » (Project configuration → General).<br/>'
-        '• Google Search Console et sitemap.<br/>'
-        '• Contenus à valider : chiffre « 90 % des marchandises par la route », formulation « directive européenne à laquelle nous participons », relecture de l’anglais, coquille « COMSUMPTION » sur la pastille anglaise, version du film sans textes incrustés.<br/>'
-        '• Résiliation Wix après quelques semaines.')]
+# ---------------- État au lancement
+S += [p('État au 21 septembre 2026', H2),
+      p('• Site en ligne sur https://www.y-stream.fr (y-stream.fr redirige vers www), HTTPS Let’s Encrypt actif, DNS délégué à Infomaniak.<br/>'
+        '• Mentions légales complètes (capital 15 000 €, directeur de la publication Ivan Bellia, hébergeur Netlify, Inc.).<br/>'
+        '• Formulaire : détection active, notification e-mail vers info@y-stream.fr, envoi de test reçu.<br/>'
+        '• Badge « Powered by Netlify » désactivé. Sous-titres du film FR/EN vérifiés.<br/>'
+        '• Reste : Google Search Console (propriété y-stream.fr, validation TXT chez Infomaniak, soumettre le sitemap) ; '
+        'contenus à valider (chiffre « 90 % des marchandises par la route », « jusqu’à 10 % » sur le site contre « 10 à 15 % » dans le film, relecture de l’anglais, coquille « COMSUMPTION » sur la pastille anglaise) ; '
+        'résiliation Wix après quelques semaines ; renouvellement du domaine avant le 16/10/2026.')]
 
 doc.build(S, onFirstPage=header_footer, onLaterPages=header_footer)
 print('ok', OUT)

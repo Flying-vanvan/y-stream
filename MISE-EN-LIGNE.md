@@ -50,12 +50,14 @@ Dans Infomaniak : Manager → Domaines → y-stream.fr → Zone DNS :
 Après propagation, Netlify émet automatiquement le certificat HTTPS (Let's Encrypt). Dans Domain management, définir
 `www.y-stream.fr` comme domaine principal (les canonicals du site pointent vers www).
 
-## 5. Après la bascule **[Claude + Ivan]**
+## 5. Après la bascule **[Claude + Ivan]** — bascule effective le 18/09/2026, site en ligne sur www.y-stream.fr le 21/09/2026
 
 - Vérifier https://www.y-stream.fr, https://y-stream.fr (redirection vers www), /fr/, /admin/, le formulaire (un vrai envoi).
 - Google Search Console : ajouter la propriété `y-stream.fr` (validation par enregistrement TXT chez Infomaniak) et soumettre `https://www.y-stream.fr/sitemap.xml`. **[Ivan]** pour la création, je prépare les valeurs.
 - Résilier l'abonnement Wix une fois le nouveau site stable (garder le compte quelques semaines pour récupérer d'éventuels contenus).
-- Compléter les mentions légales (capital, hébergeur = Netlify, Inc., 512 2nd Street, San Francisco, CA 94107, USA) : je le fais dès que tu me donnes le capital social.
+- Mentions légales complétées le 21/09/2026 (capital 15 000 €, directeur de la publication Ivan Bellia, hébergeur Netlify, Inc.).
+- Formulaire testé, notification e-mail vers info@y-stream.fr active. Badge « Powered by Netlify » désactivé.
+- Note : la délégation DNS (rubrique « Modifier les serveurs DNS » chez Infomaniak, distincte de la zone DNS) a mis plusieurs heures à être acceptée par le registre AFNIC ; vérifiable sur https://rdap.nic.fr/domain/y-stream.fr.
 
 ## Rappels
 
