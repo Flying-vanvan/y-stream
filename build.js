@@ -165,6 +165,8 @@ DirectoryIndex index.html
 ErrorDocument 404 /404.html
 
 RewriteEngine On
+# validation des certificats SSL (Let's Encrypt) : jamais redirigée
+RewriteRule ^\\.well-known/ - [L]
 # y-stream.fr → https://www.y-stream.fr (les autres hôtes, ex. URL de prévisualisation Infomaniak, ne sont pas redirigés)
 RewriteCond %{HTTP_HOST} ^(www\\.)?y-stream\\.fr$ [NC]
 RewriteCond %{HTTPS} !=on [OR]
