@@ -1,11 +1,12 @@
 <?php
 // Formulaire de contact Y-stream → e-mail à info@y-stream.fr (hébergement Infomaniak, fonction mail()).
 // Appelé en AJAX par la page (réponse JSON), fonctionne aussi sans JavaScript (redirection).
+ini_set('display_errors', '0');
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 
 const TO      = 'info@y-stream.fr';
-const FROM    = 'no-reply@y-stream.fr';   // adresse du domaine : indispensable pour passer SPF/DKIM Infomaniak
+const FROM    = 'info@y-stream.fr';   // doit être l'« adresse e-mail d'expédition » définie dans le Manager Infomaniak (site → Avancé → Général)
 const MAX_LEN = 5000;
 
 $fail = function (int $code, string $msg) {
@@ -35,7 +36,8 @@ $headers = "From: Y-stream <" . FROM . ">\r\n"
          . "Reply-To: " . str_replace(['<', '>'], '', $name) . " <$email>\r\n"
          . "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n";
 
-if (!mail(TO, $mailSubject, $body, $headers, '-f' . FROM)) $fail(500, 'Envoi impossible');
+if (!function_exists('mail')) $fail(500, 'Fonction mail() désactivée : à activer dans le Manager Infomaniak (site → Avancé → PHP / Apache)');
+if (!@mail(TO, $mailSubject, $body, $headers)) $fail(500, 'Envoi impossible');
 
 // Sans JavaScript : retour à la page avec un marqueur
 if (strpos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') === false) {
