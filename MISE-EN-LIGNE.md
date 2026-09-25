@@ -1,5 +1,8 @@
 # Y-stream : mise en ligne (Netlify + domaine Infomaniak)
 
+> **Depuis le 25/09/2026, le site est hébergé chez Infomaniak** (hébergement « ease designers SITES », dossier `/sites/y-stream.fr`, publication par GitHub Actions, back-office par e-mail + mot de passe). La procédure Netlify ci-dessous est conservée pour l'historique ; la référence à jour est le guide « Y-stream – structure et maintenance.pdf » (généré par `python3 tools/make-guide.py`).
+
+
 Contexte : le domaine y-stream.fr et la messagerie info@y-stream.fr sont chez Infomaniak, le site actuel est sur Wix.
 On ne touche pas à la messagerie : seuls les enregistrements « web » (A et CNAME) changent, les MX restent.
 Le site Wix reste en ligne jusqu'au basculement DNS, il n'y a donc aucune coupure.

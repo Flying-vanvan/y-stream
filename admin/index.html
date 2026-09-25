@@ -9,5 +9,13 @@
 <body>
   <!-- Decap CMS, connexion via GitHub (OAuth géré par admin/oauth/*.php sur l'hébergement Infomaniak) -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // le bouton « Login with GitHub » ouvre en fait l'écran e-mail + mot de passe (admin/oauth/auth.php)
+    new MutationObserver(function () {
+      document.querySelectorAll('button').forEach(function (b) {
+        if (/github/i.test(b.textContent) && !b.dataset.ys) { b.dataset.ys = 1; b.lastChild.textContent = 'Log in'; }
+      });
+    }).observe(document.documentElement, { childList: true, subtree: true });
+  </script>
 </body>
 </html>

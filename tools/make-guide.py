@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Génère 'Y-stream – structure et maintenance.pdf' (reportlab)."""
+"""Génère le guide PDF « Y-stream, structure et maintenance » (reportlab) : python3 tools/make-guide.py"""
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib import colors
@@ -12,7 +12,7 @@ LIME = colors.HexColor('#d7da35'); LIMED = colors.HexColor('#a8ab1c'); SOFT = co
 
 OUT = 'Y-stream – structure et maintenance.pdf'
 doc = SimpleDocTemplate(OUT, pagesize=A4, leftMargin=20*mm, rightMargin=20*mm, topMargin=22*mm, bottomMargin=20*mm,
-                        title='Y-stream – structure et maintenance du site', author='ease designers', subject='y-stream.fr')
+                        title='Y-stream, structure et maintenance du site', author='ease designers', subject='y-stream.fr')
 
 H1 = ParagraphStyle('h1', fontName='Helvetica-Bold', fontSize=22, leading=26, textColor=INK, spaceAfter=4)
 H2 = ParagraphStyle('h2', fontName='Helvetica-Bold', fontSize=14, leading=18, textColor=INK, spaceBefore=14, spaceAfter=6)
@@ -44,26 +44,28 @@ def header_footer(canvas, doc_):
     canvas.setFont('Helvetica', 8); canvas.setFillColor(MUTED)
     canvas.drawRightString(w - 20*mm, h - 13.6*mm, 'ease designers · septembre 2026')
     canvas.drawRightString(w - 20*mm, 12*mm, f'{doc_.page}')
-    canvas.drawString(20*mm, 12*mm, 'y-stream.fr  ·  dépôt github.com/Flying-vanvan/y-stream  ·  hébergement Netlify')
+    canvas.drawString(20*mm, 12*mm, 'y-stream.fr  ·  dépôt github.com/Flying-vanvan/y-stream  ·  hébergement Infomaniak')
     canvas.restoreState()
 
 S = []
+C = lambda t: f'<font face="Courier">{t}</font>'
 # ---------------- Page 1 : vue d'ensemble
 S += [p('Y-stream', H1), p('Structure du site et guide de maintenance', ParagraphStyle('sub', parent=P, fontSize=12, leading=16, textColor=MUTED, spaceAfter=14))]
 S += [p('EN UNE PHRASE', EYE), p("Le site y-stream.fr est un site statique bilingue (anglais à la racine, français sous <b>/fr/</b>) généré par un petit script "
-       "à partir de fichiers texte, versionné sur GitHub, publié automatiquement par Netlify et modifiable par un back-office web. "
-       "Aucune base de données, aucun serveur à entretenir, aucun abonnement payant.")]
+       "à partir de fichiers texte, versionné sur GitHub, envoyé automatiquement sur l’hébergement Infomaniak de l’agence et modifiable par un back-office web. "
+       "Aucune base de données, aucun CMS à mettre à jour, aucun abonnement propre au site.")]
 S += [p('COMMENT LES PIÈCES S’EMBOÎTENT', EYE)]
 S += [table([['Brique', 'Rôle', 'Où'],
              ['Dossier Y-stream', 'Les sources du site (textes, images, gabarits, script de génération). Copie locale du dépôt.', 'Mac : Documents/Claude/Projects/Y-stream'],
              ['GitHub', 'La référence : chaque modification (depuis le Mac ou le back-office) y est enregistrée avec son historique.', 'github.com/Flying-vanvan/y-stream'],
-             ['Netlify', 'À chaque modification sur GitHub, exécute <font face="Courier">node build.js</font>, publie le dossier <font face="Courier">dist/</font>, gère HTTPS, le formulaire et les comptes du back-office.', 'app.netlify.com → projet ystream'],
+             ['GitHub Actions', f'À chaque modification : exécute {C("node build.js")}, puis envoie le dossier {C("dist/")} chez Infomaniak par FTPS (2 à 4 minutes).', 'Dépôt › onglet Actions › « Déploiement Infomaniak »'],
+             ['Infomaniak, hébergement', 'Hébergement web « ease designers SITES » (partagé avec les autres sites de l’agence) : sert les pages, HTTPS Let’s Encrypt, formulaire de contact en PHP.', 'Manager › Web &amp; Domaines › ease designers SITES › y-stream.fr'],
              ['Back-office', 'Interface web pour modifier textes, chiffres, équipe, images et pages légales sans outil. Écrit directement dans GitHub.', 'www.y-stream.fr/admin/'],
-             ['Infomaniak', 'Nom de domaine et messagerie info@y-stream.fr. Ne change pas.', 'manager.infomaniak.com']],
+             ['Infomaniak, domaine', 'Nom de domaine, zone DNS et messagerie info@y-stream.fr.', 'Manager › Domaines › y-stream.fr']],
             [32*mm, 88*mm, 50*mm])]
 S += [p('LE CYCLE DE PUBLICATION', EYE),
       p('1. Une modification est enregistrée dans GitHub (par le back-office, ou par GitHub Desktop depuis le Mac).<br/>'
-        '2. Netlify la détecte, régénère le site en ~30 secondes et le publie.<br/>'
+        '2. GitHub Actions régénère le site et envoie les fichiers modifiés chez Infomaniak (2 à 4 minutes).<br/>'
         '3. Le site est à jour. Un « Fetch origin » dans GitHub Desktop rapatrie les changements du back-office sur le Mac.')]
 S += [p('Les deux sens fonctionnent : ce que tu changes dans le back-office se retrouve dans le dossier du Mac, et inversement. '
         'La seule règle : toujours faire « Fetch origin » avant de modifier des fichiers sur le Mac, pour ne pas écraser une modification faite dans le back-office.', SM)]
@@ -82,89 +84,115 @@ S += [table([['Fichier / dossier', 'Contenu', 'À modifier ?'],
              ['assets/site.css', 'Tout le design (couleurs, typos, animations, responsive).', 'Avec Claude'],
              ['index.html, page.html, 404.html', 'Gabarits des pages : accueil, pages légales, page introuvable.', 'Avec Claude'],
              ['partials-footer.html, partials-cookie.js', 'Pied de page et bandeau cookies, communs à toutes les pages.', 'Avec Claude'],
-             ['build.js', 'Le générateur : injecte les données dans les gabarits, produit EN + FR, le sitemap, les redirections, les en-têtes de sécurité.', 'Avec Claude'],
-             ['admin/', 'Back-office Decap CMS (config.yml décrit les champs éditables).', 'Avec Claude'],
-             ['netlify.toml, robots.txt, .gitignore', 'Configuration de l’hébergement, des robots, des fichiers exclus du dépôt.', 'Non'],
-             ['apercu/', 'Aperçus autonomes générés par <font face="Courier">node build.js --preview</font> ; hors dépôt.', 'Généré'],
-             ['dist/', 'Site généré ; hors dépôt, reconstruit par Netlify.', 'Généré'],
+             ['build.js', 'Le générateur : injecte les données dans les gabarits, produit EN + FR, le sitemap, le fichier .htaccess (HTTPS, redirections, sécurité, cache).', 'Avec Claude'],
+             ['contact.php', 'Formulaire de contact : reçoit le message et l’envoie à info@y-stream.fr.', 'Avec Claude'],
+             ['admin/', 'Back-office Decap CMS (config.yml décrit les champs éditables) et admin/oauth/ (écran de connexion).', 'Avec Claude'],
+             ['.github/workflows/deploy.yml', 'La publication automatique vers Infomaniak (GitHub Actions).', 'Non'],
+             ['tools/', 'secrets-back-office.js (accès au back-office, utilisé par la publication) et make-guide.py (ce guide).', 'Non'],
+             ['robots.txt, .gitignore', 'Robots d’indexation, fichiers exclus du dépôt.', 'Non'],
+             ['netlify.toml', 'Ancien réglage Netlify (jusqu’au 25/09/2026), inutilisé.', 'Peut être supprimé'],
+             ['apercu/', f'Aperçus autonomes générés par {C("node build.js --preview")} ; hors dépôt.', 'Généré'],
+             ['dist/', 'Site généré ; hors dépôt, reconstruit à chaque publication.', 'Généré'],
              ['assets/*.ai, Mon film 2c.mp4, 260731_*.png', 'Sources lourdes (Illustrator, film original, PNG HD). Sur le Mac uniquement, exclues du dépôt.', 'Archive']],
             [46*mm, 90*mm, 34*mm], mono_first=True)]
-S += [p('Le dossier <font face="Courier">_to_delete/</font> contient des fichiers temporaires de Git à supprimer ; il est ignoré par le dépôt.', SM)]
+S += [p(f'Le dossier {C("_to_delete/")} contient des fichiers temporaires de Git à supprimer ; il est ignoré par le dépôt.', SM)]
 
 # ---------------- Modifier le contenu
-S += [PageBreak(), p('Modifier le contenu', H2)]
+S += [p('Modifier le contenu', H2)]
 S += [p('PAR LE BACK-OFFICE (RECOMMANDÉ)', EYE),
-      p('Aller sur <b>www.y-stream.fr/admin/</b>, se connecter avec l’e-mail et le mot de passe Netlify Identity. '
+      p('Aller sur <b>www.y-stream.fr/admin/</b>, cliquer sur « Log in » : une fenêtre demande l’<b>e-mail</b> (ivan@ease-designers.com) et le <b>mot de passe</b> du back-office. '
         'Deux collections : <b>Site – English</b> et <b>Site – Français</b>, chacune avec la page d’accueil, le SEO, les textes d’interface et les pages légales. '
-        'Modifier, puis <b>Publier</b> : le site est régénéré en une minute. Pour une image, l’onglet <b>Media</b> permet de téléverser dans assets/img puis de la sélectionner dans le champ concerné (photo d’un fondateur, logo partenaire).')]
-S += [p('Chaque publication du back-office est un commit GitHub signé de ton nom : l’historique complet est consultable et tout retour arrière est possible.', SM)]
+        'Modifier, puis <b>Publier</b> : le site est à jour 2 à 4 minutes plus tard. Pour une image, l’onglet <b>Media</b> permet de téléverser dans assets/img puis de la sélectionner dans le champ concerné (photo d’un fondateur, logo partenaire).')]
+S += [p('Chaque publication du back-office est un commit GitHub : l’historique complet est consultable et tout retour arrière est possible.', SM)]
 S += [p('DEPUIS LE MAC', EYE),
-      p('1. GitHub Desktop → <b>Fetch origin</b> (récupère les éventuelles modifications du back-office).<br/>'
+      p('1. GitHub Desktop › <b>Fetch origin</b> (récupère les éventuelles modifications du back-office).<br/>'
         '2. Modifier les fichiers dans le dossier Y-stream (ou demander à Claude).<br/>'
-        '3. Vérifier en local : <font face="Courier">node build.js --preview</font> puis ouvrir <font face="Courier">apercu/accueil.html</font> ou <font face="Courier">apercu/fr-accueil.html</font>.<br/>'
-        '4. GitHub Desktop → écrire un résumé → <b>Commit to main</b> → <b>Push origin</b>. Netlify publie.')]
+        f'3. Vérifier en local : {C("node build.js --preview")} puis ouvrir {C("apercu/accueil.html")} ou {C("apercu/fr-accueil.html")}.<br/>'
+        '4. GitHub Desktop › écrire un résumé › <b>Commit to main</b> › <b>Push origin</b>. GitHub Actions publie.')]
 S += [p('RÈGLES DE RÉDACTION INTÉGRÉES', EYE),
       p('Le générateur applique automatiquement la typographie : espace insécable avant : ; ? ! % et », les deux-points ne passent jamais seuls à la ligne. '
-        'Un retour à la ligne dans un titre s’écrit <font face="Courier">\\n</font> dans le JSON (utilisé dans « Physics pays the bill » et « puis aller sur la route »). '
+        'Un retour à la ligne dans un titre s’écrit ' + C("\\n") + ' dans le JSON (utilisé dans « Physics pays the bill » et « puis aller sur la route »). '
         'Les tirets longs sont évités dans les textes (virgules). En français, le dispositif s’appelle la <b>coiffe</b> ; en anglais, the <b>tail</b>.')]
 S += [p('IMAGES ET VIDÉOS', EYE),
       p('Images : JPEG qualité 85 pour les photos et rendus, PNG pour les logos et la pastille (fond transparent), largeur maximale 1800 px. '
         'Photos des fondateurs : carré 600 × 600. Pastilles : 300 × 300, une par langue (badge-fr.png / badge-en.png). '
-        'Vidéo du bandeau : MP4 H.264 1280 × 720 sans son, 8 à 12 s, ~0,5 Mo, sans texte incrusté (bilingue). Film complet : 1280 × 720, ~10 Mo. '
+        'Vidéo du bandeau : MP4 H.264 1280 × 720 sans son, 8 à 12 s, environ 0,5 Mo, sans texte incrusté (bilingue). Film complet : 1280 × 720, environ 10 Mo. '
         'Pour remplacer, déposer le nouveau fichier au même nom dans assets/video/ et publier.')]
 
-# ---------------- Hébergement, comptes, domaine
+# ---------------- Hébergement, comptes et domaine
 S += [p('Hébergement, comptes et domaine', H2)]
 S += [table([['Service', 'Compte', 'Sert à'],
-             ['GitHub', 'Flying-vanvan (compte personnel existant)', 'Héberger le dépôt y-stream. Donne accès à Netlify en lecture/écriture sur ce seul dépôt.'],
-             ['Netlify', 'ivan@ease-designers.com (connexion via GitHub)', 'Build, hébergement, HTTPS, formulaire (Forms), comptes du back-office (Identity + Git Gateway), domaine.'],
-             ['Netlify Identity', 'Utilisateurs invités : Ivan (+ Pierre si besoin)', 'Connexion au back-office. Inscription en « Invite only ». Mot de passe oublié : lien « Forgot password » sur /admin/.'],
-             ['Infomaniak', 'Compte existant', 'Registrar et serveurs DNS du domaine y-stream.fr (ns11/ns12.infomaniak.ch, délégation active depuis le 18/09/2026) et messagerie info@y-stream.fr. Seuls A de @ et CNAME de www pointent vers Netlify ; MX, SPF, DKIM, DMARC restent Infomaniak. Expiration du domaine : 16/10/2026, vérifier le renouvellement automatique.'],
-             ['Wix', 'Ancien site', 'Hors ligne depuis la bascule DNS. À résilier après quelques semaines de stabilité du nouveau site.']],
-            [30*mm, 55*mm, 85*mm])]
-S += [p('DNS (chez Infomaniak, zone y-stream.fr)', EYE),
-      table([['Type', 'Nom', 'Valeur'], ['A', '@', '75.2.60.5 (Netlify)'], ['CNAME', 'www', 'ystream.netlify.app'], ['MX / TXT', '@', 'inchangés (messagerie Infomaniak)']], [25*mm, 25*mm, 120*mm])]
-S += [p('Domaine principal dans Netlify : <b>www.y-stream.fr</b> (les canonicals du site pointent vers www ; y-stream.fr redirige vers www). Certificat HTTPS Let’s Encrypt automatique.', SM)]
+             ['GitHub', 'Flying-vanvan', 'Héberger le dépôt y-stream et exécuter la publication (GitHub Actions). Les identifiants sont des « secrets » du dépôt (tableau ci-dessous).'],
+             ['Infomaniak, hébergement', 'Organisation ease designers, hébergement « ease designers SITES »', f'Site PHP, dossier {C("/sites/y-stream.fr")}. Accès FTP partagé par tous les sites : {C("xe4lus_ease-deploy")}. Fichiers privés (hors du site) dans {C("/sites/private/")}. Certificat Let’s Encrypt installé le 25/09/2026, renouvelé automatiquement.'],
+             ['Infomaniak, domaine', 'Compte du domaine', 'Registrar et serveurs DNS de y-stream.fr (ns11/ns12.infomaniak.ch) et messagerie info@y-stream.fr. Expiration du domaine : 16/10/2026, vérifier le renouvellement automatique.'],
+             ['Google Search Console', 'Compte Google d’Ivan', 'Propriété y-stream.fr (validée par TXT dans la zone DNS), sitemap soumis.'],
+             ['Netlify', 'Ancien hébergement', 'Plus utilisé depuis le 25/09/2026. Le projet « ystream » peut être supprimé.'],
+             ['Wix', 'Ancien site', 'Hors ligne. À résilier après quelques semaines de stabilité du nouveau site.']],
+            [32*mm, 46*mm, 92*mm])]
+S += [p('SECRETS DU DÉPÔT (GitHub › y-stream › Settings › Secrets and variables › Actions)', EYE),
+      table([['Nom', 'Valeur'],
+             ['FTP_HOST', 'xe4lus.ftp.infomaniak.com'],
+             ['FTP_USER', 'xe4lus_ease-deploy'],
+             ['FTP_PASSWORD', 'mot de passe de ease-deploy (le même pour tous les sites)'],
+             ['FTP_DIR', '/sites/y-stream.fr/'],
+             ['BO_TOKEN', 'jeton GitHub « fine-grained » limité au dépôt y-stream, permission Contents : Read and write, expiration 1 an'],
+             ['BO_PASSWORD', 'mot de passe du back-office (10 caractères minimum)']],
+            [34*mm, 136*mm], mono_first=True)]
+S += [p('Un secret ne se relit jamais : on le remplace. Changer le mot de passe du back-office = modifier BO_PASSWORD puis relancer la publication (Actions › Déploiement Infomaniak › Run workflow). '
+        'L’e-mail de connexion est BO_EMAIL dans .github/workflows/deploy.yml. Le jeton expire après un an : GitHub prévient par e-mail, en créer un nouveau et remplacer BO_TOKEN.', SM)]
+S += [p('ZONE DNS (Infomaniak, y-stream.fr)', EYE),
+      table([['Type', 'Nom', 'Valeur'],
+             ['A', '@ et www', '185.176.225.32 (hébergement Infomaniak)'],
+             ['AAAA', '@ et www', '2001:1600:0:aaaa::80:90'],
+             ['MX', '@', 'mta-gw.infomaniak.ch (priorité 5), messagerie'],
+             ['TXT', '@', 'v=spf1 include:spf.infomaniak.ch -all ; google-site-verification=…'],
+             ['TXT', '_dmarc', 'v=DMARC1; p=reject;'],
+             ['NS', '@', 'ns11.infomaniak.ch, ns12.infomaniak.ch']],
+            [20*mm, 26*mm, 124*mm])]
+S += [p('Adresse principale : <b>https://www.y-stream.fr</b> ; y-stream.fr et http:// redirigent vers elle (fichier .htaccess). Ne jamais supprimer MX, SPF ni DMARC : c’est la messagerie.', SM)]
 
 # ---------------- Sécurité, SEO, formulaire
-S += [PageBreak(), p('Sécurité, SEO et formulaire', H2)]
+S += [p('Sécurité, SEO et formulaire', H2)]
 S += [p('SÉCURITÉ', EYE),
-      p('Site statique : pas de base de données ni de code serveur, donc pas de faille applicative à surveiller. En-têtes envoyés par Netlify (fichier <font face="Courier">_headers</font> généré) : '
-        'Content-Security-Policy stricte (aucun domaine externe sauf pour /admin/), HSTS, X-Frame-Options DENY, nosniff, Referrer-Policy. Aucun cookie de suivi, aucun script tiers sur les pages publiques. '
-        'Le back-office est protégé par Netlify Identity ; l’accès en écriture au dépôt passe par Git Gateway, sans jamais exposer de jeton GitHub.')]
+      p('Site statique : pas de base de données ni de CMS côté serveur, donc pas de faille applicative à surveiller. En-têtes envoyés par le fichier .htaccess généré : '
+        'Content-Security-Policy stricte (aucun domaine externe sauf pour /admin/), HSTS, X-Frame-Options DENY, nosniff, Referrer-Policy, Permissions-Policy. Aucun cookie de suivi, aucun script tiers sur les pages publiques. '
+        'Le back-office vérifie le mot de passe côté serveur (empreinte PBKDF2, blocage après plusieurs échecs) puis utilise le jeton GitHub du site, jamais visible dans le dépôt. '
+        'Seuls quatre scripts PHP existent (formulaire et connexion) ; tout le reste est du HTML.')]
 S += [p('SEO', EYE),
       p('Par page et par langue : titre, description, canonical, hreflang en / fr / x-default, Open Graph et Twitter (image assets/og-y-stream.jpg 1200 × 630), données structurées Schema.org '
         '(Organization ease lab SAS avec SIREN et TVA, WebSite, Product, WebPage), sitemap.xml avec alternates, robots.txt, page 404 en noindex. '
         'Redirections des anciennes URL Wix : /technologie, /à-propos, /politique-de-confidentialité. '
-        'À faire après la bascule : déclarer la propriété dans Google Search Console (validation par enregistrement TXT chez Infomaniak) et soumettre https://www.y-stream.fr/sitemap.xml.')]
+        'Google Search Console : propriété y-stream.fr, sitemap https://www.y-stream.fr/sitemap.xml.')]
 S += [p('FORMULAIRE DE CONTACT', EYE),
-      p('Netlify Forms : les messages arrivent dans Netlify → Forms → contact et par e-mail à info@y-stream.fr (notification configurée et testée le 21/09/2026). '
-        'Envoi en arrière-plan, popup « Votre message a bien été envoyé » ; champ anti-spam caché (honeypot). Limite du plan gratuit : 100 messages par mois.')]
+      p(f'Le formulaire appelle {C("contact.php")}, qui envoie le message à <b>info@y-stream.fr</b> par le serveur d’envoi authentifié d’Infomaniak '
+        f'(identifiants de la boîte dans le fichier privé {C("/sites/private/y-stream-mail.php")}, créé via WebFTP). Sans ce fichier, le script utilise la fonction mail() du serveur. '
+        'Envoi en arrière-plan, popup « Votre message a bien été envoyé » ; champ anti-spam caché. Les messages ne sont conservés que dans la boîte e-mail.')]
 
 # ---------------- Que faire si
 S += [p('Que faire si…', H2)]
 S += [table([['Situation', 'Réponse'],
-             ['Le site ne se met pas à jour après une publication', 'Netlify → Deploys : vérifier que le dernier déploiement est « Published ». S’il est en erreur, ouvrir le journal ; le plus souvent un JSON invalide (guillemet ou virgule manquante) dans data/. Corriger et republier.'],
-             ['Le back-office refuse la connexion', 'Netlify → Identity → Users : le compte existe-t-il ? Sinon, « Invite users ». Mot de passe oublié : lien sur la page /admin/. Vérifier que Git Gateway est activé (Identity → Services).'],
-             ['Un lien d’invitation ouvre la page d’accueil', 'Le site redirige automatiquement vers /admin/ ; sinon ajouter « admin/ » avant le « # » dans l’adresse.'],
-             ['Les mails info@y-stream.fr n’arrivent plus', 'Sans rapport avec le site : vérifier la zone DNS Infomaniak (MX, SPF) qui ne doit pas avoir été modifiée lors de la bascule.'],
-             ['Revenir à une version précédente', 'Netlify → Deploys → choisir un déploiement antérieur → « Publish deploy » (instantané). Ou GitHub Desktop → History → Revert.'],
-             ['Ajouter un éditeur (Pierre)', 'Netlify → Identity → Invite users avec son e-mail. Il reçoit un lien, choisit un mot de passe.'],
+             ['Le site ne se met pas à jour après une publication', 'GitHub › y-stream › Actions : le dernier lancement doit être vert. S’il est rouge, cliquer dessus puis sur « deploy » pour lire l’erreur ; le plus souvent un JSON invalide (guillemet ou virgule manquante) dans data/, ou un mot de passe FTP changé (mettre à jour FTP_PASSWORD).'],
+             ['Le back-office refuse la connexion', 'Vérifier l’e-mail et le mot de passe (secret BO_PASSWORD). Après 8 essais, attendre quelques minutes. Si l’écran indique « connexion pas encore configurée », les secrets BO_TOKEN / BO_PASSWORD manquent : les créer puis relancer la publication.'],
+             ['Le back-office affiche une erreur à l’enregistrement', 'Le jeton BO_TOKEN a probablement expiré : en créer un nouveau (GitHub › Settings › Developer settings › Fine-grained tokens) et remplacer le secret.'],
+             ['Les messages du formulaire n’arrivent plus', 'Regarder dans les indésirables. Vérifier que le fichier privé y-stream-mail.php existe et que le mot de passe de la boîte info@y-stream.fr n’a pas changé.'],
+             ['Les mails info@y-stream.fr n’arrivent plus', 'Sans rapport avec le site : vérifier la zone DNS (MX, SPF) qui ne doit pas avoir été modifiée.'],
+             ['Alerte de sécurité dans le navigateur', 'Manager › hébergement › y-stream.fr › Certificat SSL : réinstaller Let’s Encrypt (y-stream.fr + www).'],
+             ['Revenir à une version précédente', 'GitHub Desktop › History › clic droit sur la modification › Revert changes in commit › Push origin. Le site revient en 2 à 4 minutes.'],
+             ['Ajouter un éditeur (Pierre)', 'Ajouter son e-mail dans BO_EMAIL (deploy.yml, séparés par des virgules ; même mot de passe), ou, pour des mots de passe distincts, fichier privé /sites/private/y-stream-oauth.php (modèle dans admin/oauth/config.php) ; avec Claude.'],
              ['Remplacer le film ou la boucle', 'Encoder en MP4 H.264 720p, déposer au même nom dans assets/video/, Commit + Push.'],
              ['Changer une couleur, une police, une animation', 'assets/site.css ; demander à Claude en indiquant l’élément et l’effet souhaité.'],
              ['Ajouter une page ou une section', 'Nouveau bloc dans index.html + textes dans data/home*.json + champs dans admin/config.yml ; avec Claude.'],
-             ['Quitter Netlify un jour', 'Le dossier + <font face="Courier">node build.js</font> suffisent : dist/ se dépose sur n’importe quel hébergeur statique (Cloudflare Pages, OVH, Infomaniak). Seuls le formulaire et la connexion au back-office seraient à reconfigurer.']],
+             ['Changer d’hébergeur un jour', f'Le dossier + {C("node build.js")} suffisent : dist/ se dépose sur n’importe quel hébergement acceptant PHP. Mettre à jour FTP_HOST / FTP_DIR et la zone DNS.']],
             [50*mm, 120*mm])]
 
-# ---------------- État au lancement
-S += [p('État au 21 septembre 2026', H2),
-      p('• Site en ligne sur https://www.y-stream.fr (y-stream.fr redirige vers www), HTTPS Let’s Encrypt actif, DNS délégué à Infomaniak.<br/>'
-        '• Mentions légales complètes (capital 15 000 €, directeur de la publication Ivan Bellia, hébergeur Netlify, Inc.).<br/>'
-        '• Formulaire : détection active, notification e-mail vers info@y-stream.fr, envoi de test reçu.<br/>'
-        '• Badge « Powered by Netlify » désactivé. Sous-titres du film FR/EN vérifiés.<br/>'
-        '• Reste : Google Search Console (propriété y-stream.fr, validation TXT chez Infomaniak, soumettre le sitemap) ; '
-        'contenus à valider (chiffre « 90 % des marchandises par la route », « jusqu’à 10 % » sur le site contre « 10 à 15 % » dans le film, relecture de l’anglais, coquille « COMSUMPTION » sur la pastille anglaise) ; '
-        'résiliation Wix après quelques semaines ; renouvellement du domaine avant le 16/10/2026.')]
+# ---------------- État
+S += [p('État au 25 septembre 2026', H2),
+      p('• Site en ligne sur https://www.y-stream.fr, hébergé chez Infomaniak (hébergement « ease designers SITES ») depuis le 25/09/2026, certificat Let’s Encrypt actif, publication automatique par GitHub Actions.<br/>'
+        '• Mentions légales à jour (hébergeur : Infomaniak Network SA, Rue Eugène-Marziano 25, 1227 Les Acacias, Suisse).<br/>'
+        '• Google Search Console en place (propriété y-stream.fr).<br/>'
+        '• À faire : créer les secrets BO_TOKEN et BO_PASSWORD pour le back-office ; envoyer un message test par le formulaire et vérifier sa réception sur info@y-stream.fr ; '
+        'renouveler le domaine avant le 16/10/2026 ; supprimer le projet Netlify ; résilier Wix après quelques semaines ; '
+        'contenus à valider (chiffre « 90 % des marchandises par la route », « jusqu’à 10 % » sur le site contre « 10 à 15 % » dans le film, relecture de l’anglais, coquille « COMSUMPTION » sur la pastille anglaise).')]
 
 doc.build(S, onFirstPage=header_footer, onLaterPages=header_footer)
 print('ok', OUT)

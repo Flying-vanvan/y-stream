@@ -26,6 +26,12 @@ jobs:
           node-version: 20
       - name: Construire le site
         run: node build.js
+      - name: Accès au back-office
+        env:
+          BO_TOKEN: ${{ secrets.BO_TOKEN }}
+          BO_PASSWORD: ${{ secrets.BO_PASSWORD }}
+          BO_EMAIL: ivan@ease-designers.com
+        run: node tools/secrets-back-office.js
       - name: Envoyer dist/ chez Infomaniak
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:

@@ -210,4 +210,8 @@ fs.writeFileSync(path.join(OUT, 'admin', '.htaccess'), `<IfModule mod_headers.c>
   Header always set Content-Security-Policy "default-src 'self' https://unpkg.com https://api.github.com https://github.com 'unsafe-inline' 'unsafe-eval' data: blob:; img-src * data: blob:; connect-src *; frame-ancestors 'none'"
 </IfModule>
 `);
+fs.writeFileSync(path.join(OUT, 'admin', 'oauth', '.htaccess'), `<Files "secrets.php">
+  Require all denied
+</Files>
+`);
 console.log(`Built EN + FR → dist/${preview ? ' (+ apercu/)' : ''}`);
