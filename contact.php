@@ -36,8 +36,18 @@ $headers = "From: Y-stream <" . FROM . ">\r\n"
          . "Reply-To: " . str_replace(['<', '>'], '', $name) . " <$email>\r\n"
          . "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n";
 
-if (!function_exists('mail')) $fail(500, 'Fonction mail() désactivée : à activer dans le Manager Infomaniak (site → Avancé → PHP / Apache)');
-if (!@mail(TO, $mailSubject, $body, $headers)) $fail(500, 'Envoi impossible');
+// Envoi : SMTP authentifié Infomaniak si le fichier privé existe (recommandé), sinon fonction mail().
+// Fichier privé (hors du site, créé via WebFTP) : /sites/private/y-stream-mail.php contenant
+//   <?php define('SMTP_USER', 'info@y-stream.fr'); define('SMTP_PASS', 'mot de passe de la boîte');
+$private = dirname($_SERVER['DOCUMENT_ROOT']) . '/private/y-stream-mail.php';
+if (is_file($private)) {
+  require $private;
+  $err = smtp_send('mail.infomaniak.com', 465, SMTP_USER, SMTP_PASS, FROM, [TO], "To: " . TO . "\r\nSubject: $mailSubject\r\n" . $headers . "\r\n" . $body);
+  if ($err !== null) $fail(500, 'Envoi impossible (' . $err . ')');
+} else {
+  if (!function_exists('mail')) $fail(500, 'Fonction mail() désactivée : à activer dans le Manager Infomaniak (site → Avancé → PHP / Apache)');
+  if (!@mail(TO, $mailSubject, $body, $headers)) $fail(500, 'Envoi impossible');
+}
 
 // Sans JavaScript : retour à la page avec un marqueur
 if (strpos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') === false) {
@@ -45,3 +55,20 @@ if (strpos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') === false) {
   exit;
 }
 echo json_encode(['ok' => true]);
+
+// Mini client SMTP (SSL implicite, AUTH LOGIN). Retourne null si OK, sinon le message d'erreur.
+function smtp_send(string $host, int $port, string $user, string $pass, string $from, array $to, string $data): ?string {
+  $fp = @stream_socket_client("ssl://$host:$port", $errno, $errstr, 15);
+  if (!$fp) return "connexion : $errstr";
+  stream_set_timeout($fp, 15);
+  $read = function () use ($fp) { $out = ''; while (($l = fgets($fp, 515)) !== false) { $out .= $l; if (!isset($l[3]) || $l[3] !== '-') break; } return $out; };
+  $cmd = function (string $c, string $expect) use ($fp, $read) { fwrite($fp, $c . "\r\n"); $r = $read(); return strpos($r, $expect) === 0 ? null : trim($r); };
+  if (strpos($read(), '220') !== 0) return 'pas de bannière SMTP';
+  foreach ([["EHLO y-stream.fr", '250'], ["AUTH LOGIN", '334'], [base64_encode($user), '334'], [base64_encode($pass), '235'], ["MAIL FROM:<$from>", '250']] as [$c, $e]) if (($r = $cmd($c, $e)) !== null) return $r;
+  foreach ($to as $rcpt) if (($r = $cmd("RCPT TO:<$rcpt>", '250')) !== null) return $r;
+  if (($r = $cmd('DATA', '354')) !== null) return $r;
+  $data = preg_replace('/^\./m', '..', str_replace(["\r\n", "\n"], ["\n", "\r\n"], $data));
+  if (($r = $cmd($data . "\r\n.", '250')) !== null) return $r;
+  $cmd('QUIT', '221'); fclose($fp);
+  return null;
+}
