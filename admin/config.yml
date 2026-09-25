@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Flying-vanvan/y-stream
   branch: main
+  base_url: https://www.y-stream.fr
+  auth_endpoint: admin/oauth/auth.php
 locale: fr
 media_folder: assets/img
 public_folder: /assets/img

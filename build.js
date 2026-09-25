@@ -2,7 +2,7 @@
 /**
  * Build Y-stream → dist/   (EN at /, FR at /fr/)
  *  - injects data/*.json (home texts, SEO, UI strings, legal pages) into the page templates
- *  - hreflang / canonical / sitemap / _headers / 404
+ *  - hreflang / canonical / sitemap / .htaccess (Apache, Infomaniak) / 404 / contact.php
  *  - `node build.js --preview` also writes standalone files in apercu/ (CSS inlined, relative paths)
  * No dependency: Node ≥ 18.
  */
@@ -153,21 +153,59 @@ ${url(SITE + '/fr/', SITE + '/', SITE + '/fr/', '0.9')}
 ${['legal', 'privacy', 'cookies'].map(s => url(SITE + '/' + s + '/', SITE + '/' + s + '/', SITE + '/fr/' + s + '/', '0.3') + '\n' + url(SITE + '/fr/' + s + '/', SITE + '/' + s + '/', SITE + '/fr/' + s + '/', '0.3')).join('\n')}
 </urlset>
 `);
-// old Wix URLs → new site
-fs.writeFileSync(path.join(OUT, '_redirects'), `/technologie  /fr/#idea  301\n/à-propos  /fr/#team  301\n/%C3%A0-propos  /fr/#team  301\n/politique-de-confidentialité  /fr/privacy/  301\n/politique-de-confidentialit%C3%A9  /fr/privacy/  301\n`);
-// Security headers (Netlify / Cloudflare Pages read _headers)
-fs.writeFileSync(path.join(OUT, '_headers'), `/*
-  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'; form-action 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'
-/admin/*
-  X-Frame-Options: DENY
-  X-Robots-Tag: noindex
-  Content-Security-Policy: default-src 'self' https://unpkg.com https://identity.netlify.com https://api.netlify.com https://*.netlify.com https://api.github.com 'unsafe-inline' 'unsafe-eval' data: blob:; img-src * data: blob:; connect-src *
-/assets/*
-  Cache-Control: public, max-age=31536000, immutable
+// contact.php (formulaire) → dist
+fs.copyFileSync(path.join(SRC, 'contact.php'), path.join(OUT, 'contact.php'));
+
+// Apache (.htaccess) : HTTPS + www, anciennes URL Wix, 404, en-têtes de sécurité, cache — hébergement Infomaniak
+const CSP = "default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'";
+fs.writeFileSync(path.join(OUT, '.htaccess'), `# Généré par build.js — ne pas modifier à la main
+Options -Indexes -MultiViews
+AddDefaultCharset UTF-8
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+RewriteEngine On
+# y-stream.fr → https://www.y-stream.fr (les autres hôtes, ex. URL de prévisualisation Infomaniak, ne sont pas redirigés)
+RewriteCond %{HTTP_HOST} ^(www\\.)?y-stream\\.fr$ [NC]
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^www\\. [NC]
+RewriteRule ^ https://www.y-stream.fr%{REQUEST_URI} [R=301,L]
+# Anciennes URL du site Wix
+RewriteRule ^technologie/?$ /fr/#idea [R=301,NE,L]
+RewriteRule ^à-propos/?$ /fr/#team [R=301,NE,L]
+RewriteRule ^politique-de-confidentialité/?$ /fr/privacy/ [R=301,L]
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Content-Security-Policy "${CSP}"
+  <FilesMatch "\\.(html|php)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType text/vtt .vtt
+  AddType video/mp4 .mp4
+</IfModule>
+`);
+// assets : cache long (les URL changent quand le contenu change : ?v= pour le CSS)
+fs.writeFileSync(path.join(OUT, 'assets', '.htaccess'), `<IfModule mod_headers.c>
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</IfModule>
+`);
+// back-office : CSP ouverte pour Decap + GitHub, pas d'indexation
+fs.writeFileSync(path.join(OUT, 'admin', '.htaccess'), `<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex"
+  Header always set X-Frame-Options "DENY"
+  Header always set Content-Security-Policy "default-src 'self' https://unpkg.com https://api.github.com https://github.com 'unsafe-inline' 'unsafe-eval' data: blob:; img-src * data: blob:; connect-src *; frame-ancestors 'none'"
+</IfModule>
 `);
 console.log(`Built EN + FR → dist/${preview ? ' (+ apercu/)' : ''}`);
