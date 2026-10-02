@@ -157,7 +157,9 @@
         "Cadre réglementaire européen validé"
       ]
     },
-    "caption": "Prototype au 1/6 dans la soufflerie S2A"
+    "caption": "Prototype au 1/6 dans la soufflerie S2A",
+    "videoAlt": "Visualisation par fumée en soufflerie S2A : l'écoulement suit la coiffe gonflée Y-stream au lieu de décrocher derrière la remorque",
+    "videoCaption": "Essai à la fumée en soufflerie S2A : l'écoulement reste collé le long de la coiffe"
   },
   "next": {
     "eyebrow": "La suite",

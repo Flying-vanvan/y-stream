@@ -157,7 +157,9 @@
         "European regulatory framework validated"
       ]
     },
-    "caption": "1/6-scale prototype in the S2A wind tunnel"
+    "caption": "1/6-scale prototype in the S2A wind tunnel",
+    "videoAlt": "Smoke visualisation in the S2A wind tunnel: the airflow follows the inflated Y-stream tail instead of breaking away behind the trailer",
+    "videoCaption": "Smoke test in the S2A wind tunnel: the flow stays attached along the tail"
   },
   "next": {
     "eyebrow": "What's next",

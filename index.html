@@ -218,7 +218,11 @@
         <p class="lead">{{home.development.text}}</p>
       </div>
       <figure class="dev-visual reveal" style="margin:0 0 clamp(36px,5vw,64px)">
-        <img src="/assets/img/wind-tunnel.jpg" alt="1/6-scale trailer model with the inflated Y-stream tail in the S2A wind tunnel" width="1800" height="1047" loading="lazy">
+        <video class="wt-video" autoplay muted loop playsinline preload="metadata" poster="/assets/img/wind-tunnel-poster.jpg" width="1280" height="720" aria-label="{{home.development.videoAlt}}">
+          <source src="/assets/video/wind-tunnel.mp4" type="video/mp4">
+          <img src="/assets/img/wind-tunnel.jpg" alt="{{home.development.videoAlt}}" width="1800" height="1047" loading="lazy">
+        </video>
+        <figcaption class="caption">{{home.development.videoCaption}}</figcaption>
       </figure>
       <div class="facts stagger">/*FACTS*/</div>
       <div class="results">
