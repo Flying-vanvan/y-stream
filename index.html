@@ -151,7 +151,18 @@
       </div>
       <div class="visual problem-visual reveal">
         <img class="cube" src="/assets/img/cube.jpg" alt="A white cube on castor wheels" width="495" height="415" loading="lazy">
-        <img class="cfd" src="/assets/img/cfd.jpg" alt="CFD simulation: streamlines around a box-shaped trailer with a large turbulent wake behind it" width="1270" height="357" loading="lazy">
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="problem-cfd reveal">
+        <figure class="cfd-fig">
+          <img class="cfd" src="/assets/img/cfd.jpg" alt="{{home.problem.cfdAlt}}" width="1600" height="509" loading="lazy">
+          <figcaption class="cfd-legend" aria-hidden="true">
+            <span class="lg"><b>{{home.problem.legend.speed}}</b><i class="bar speed"></i><small>{{home.problem.legend.low}}<em>{{home.problem.legend.high}}</em></small></span>
+            <span class="lg"><b>{{home.problem.legend.wake}}</b><i class="bar wake"></i><small>{{home.problem.legend.weak}}<em>{{home.problem.legend.strong}}</em></small></span>
+            <span class="lg lines"><i class="arrow-line"></i><b>{{home.problem.legend.lines}}</b></span>
+          </figcaption>
+        </figure>
         <p class="caption">{{home.problem.caption}}</p>
       </div>
     </div>

@@ -42,7 +42,17 @@
         "label": "de cette traînée est générée par le seul arrière de la remorque"
       }
     ],
-    "caption": "Turbulences de sillage derrière une remorque cubique (simulation CFD)"
+    "caption": "Turbulences de sillage derrière une remorque cubique (simulation CFD)",
+    "legend": {
+      "speed": "Vitesse de l'air",
+      "low": "Faible",
+      "high": "Plus élevée",
+      "wake": "Turbulence / sillage",
+      "weak": "Faible",
+      "strong": "Forte",
+      "lines": "Lignes de courant (écoulement de l'air)"
+    },
+    "cfdAlt": "Simulation CFD vue de dessus : lignes de courant autour d'un ensemble tracteur-remorque, avec un large sillage turbulent derrière la caisse"
   },
   "idea": {
     "eyebrow": "L'idée",
